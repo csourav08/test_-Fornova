@@ -13,7 +13,7 @@ def extract_hotel_id(url):
     return None
 
 def fetch_prices(url):
-    # Use requests to fetch HTML content
+    
     response = requests.get(url)
     if response.status_code != 200:
         print(f"Error: Unable to fetch the page. Status code: {response.status_code}")
@@ -23,7 +23,6 @@ def fetch_prices(url):
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # Set the content of the page using requests response
         page.content = response.text
 
         rooms_data = []
@@ -33,13 +32,10 @@ def fetch_prices(url):
             check_in_date = (datetime.now() + timedelta(days=fake.random_int(min=1, max=30))).strftime('%Y-%m-%d')
             check_out_date = (datetime.strptime(check_in_date, '%Y-%m-%d') + timedelta(days=fake.random_int(min=1, max=5))).strftime('%Y-%m-%d')
 
-            # Extract hotel ID from the URL for each iteration
             hotel_id = extract_hotel_id(url)
 
-            # Update URL with new check-in and check-out dates
             current_url = url.replace('checkIn=2024-02-06', f'checkIn={check_in_date}').replace('checkOut=2024-02-07', f'checkOut={check_out_date}')
 
-            # Use Playwright to navigate to the URL
             page.goto(current_url, wait_until='domcontentloaded', timeout=60000)
             time.sleep(4)
 
