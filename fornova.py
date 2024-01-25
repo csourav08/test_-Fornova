@@ -105,3 +105,4 @@ if __name__ == '__main__':
     page_url = f'https://www.qantas.com/hotels/properties/18482?adults=2&checkIn=2024-02-06&checkOut=2024-02-07&children=0&infants=0&location=London%2C%20England%2C%20United%20Kingdom&page=1&payWith=cash&searchType=list&sortBy=popularity'
 
     main_playwright(page_url, fetch_html_playwright)
+
