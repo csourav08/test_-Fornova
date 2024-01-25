@@ -77,11 +77,11 @@ def main_playwright(url, fetch_html_function):
             rooms_data.append(room_data)
             print(json.dumps(room_data, indent=2))
 
-        # Save the data to JSON file
+     
         with open('rooms_data.json', 'w') as json_file:
             json.dump(rooms_data, json_file, indent=2)
 
-        # Save the data to CSV file
+     
         csv_file = 'fornova.csv'
         with open(csv_file, 'w', newline='') as csvfile:
             fieldnames = ['Room_Name', 'Rate_Name', 'Description', 'Price', 'Cancellation_Policy_Message_1', 'Top_Deal']
