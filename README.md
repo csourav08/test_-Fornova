@@ -1,6 +1,6 @@
 qantas.com scrapper: 
 
-This is simple scraper that uses Playwright to extract data from qantas.com
+This is simple scraper that extract data from qantas.com
 Using Playwright and requests libraty
 
 To Install:
