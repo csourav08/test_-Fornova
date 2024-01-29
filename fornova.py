@@ -1,108 +1,77 @@
-import playwright
+import time
 import requests
-import json
-import csv
 from playwright.sync_api import sync_playwright
+import json
 
-def fetch_html_playwright(url):
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
 
-        page.goto(url, wait_until='domcontentloaded', timeout=60000)
+def main():
+    page_url = "https://www.qantas.com/hotels/properties/18482?adults=2&checkIn=2024-02-01&checkOut=2024-02-02&children=0&infants=0&location=London%2C%20England%2C%20United%20Kingdom&page=1&payWith=cash&searchType=list&sortBy=popularity"
+    response = requests.get(page_url)
 
-        page.wait_for_selector('.css-du5wmh-Box.e1m6xhuh0')
-
-        html_content = page.content()
-
-        browser.close()
-
-    return html_content
-
-def fetch_html_requests(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.text
-    else:
-        raise Exception(f"Failed to retrieve content. Status code: {response.status_code}")
-
-def main_playwright(url, fetch_html_function):
-    html_content = fetch_html_function(url)
+    if response.status_code != 200:
+        print(f"Error: Unable to fetch the page. Status code: {response.status_code}")
+        return
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        page.set_content(html_content)
+        # Open the URL in the browser
+        page.goto(page_url, timeout=60000)
 
-        hotels = page.locator('.css-du5wmh-Box.e1m6xhuh0').all()
-        print(f'There are: {len(hotels)} rooms.')
+        # Wait for the page to fully load
+        page.wait_for_load_state('load')
 
-        rooms_data = []
-        for i, hotel in enumerate(hotels, start=1):
-            room_data = {
-                'Room_Name': hotel.locator('.css-19vc6se-Heading-Heading-Text.e13es6xl3').inner_text(),
-                'Rate_Name': hotel.locator('.css-10yvquw-Heading-Heading-Text.e13es6xl3').inner_text(),
-                'Description': hotel.locator('.css-zapqsm-Text.epfmh1m0').inner_text().replace('\u2022', ' '),
-                'Prices': [],
-            }
+        time.sleep(4)
 
-            prices_container = hotel.locator('.css-2r3ilu-Box.e1yh5p92')
-            prices = prices_container.locator('.css-n8sys9-Box-Flex.e1pfwvfi0').all()
+        offer_cards = page.query_selector_all('[data-testid="offer-card"]')
+        for card in offer_cards:
+            card.click()
 
-            for price in prices:
-                offer_card = price.locator('[data-testid="offer-card"]').first
-                cancellation_policy_message_element = offer_card.locator('[data-testid="cancellation-policy-message"]').first
-                additional_info_2 = price.locator('.css-70zr7a-Box-Flex.e1pfwvfi0')
+        time.sleep(3)
 
-                if cancellation_policy_message_element.is_visible():
-                    cancellation_policy_message = cancellation_policy_message_element.inner_text().strip()
-                else:
-                    cancellation_policy_message = additional_info_2.inner_text().strip() if additional_info_2.is_visible() else None
+        rooms = page.locator('.css-o4ex2l-Box-Flex.e1yh5p90').all()
+        print(f'There are: {len(rooms)} rooms.')
 
-                top_deal_exists = price.locator('.css-8jmuus-Container.e1osk7s0 .css-1jr3e3z-Text-BadgeText.e34cw120').first
+        rates = {}
+        for room in rooms:
+            room_name = room.locator('.css-vknzmc-Heading-Heading-Text.e13es6xl3').inner_text()
+            offer_cards = room.locator('[data-testid="offer-card"]').all()
 
-                try:
-                    cancellation_policy_message_1 = hotel.locator('.css-12hhnd3.e1ucyleq0').inner_text(timeout=5000)
-                except playwright._impl._api_types.TimeoutError:
-                    cancellation_policy_message_1 = None
+            room_rates = []
+            for card in offer_cards:
+                room_rate = card.locator('.css-n8sys9-Box-Flex.e1pfwvfi0').inner_text().split('\n')
+                room_rate = [part.strip() for part in room_rate if part.strip()]
+                room_rate_str = ' '.join(room_rate)
 
-                price_data = {
-                    'Price': price.inner_text().replace('\n', '').strip(),
-                    'Cancellation_Policy_Message_1': cancellation_policy_message_1,
-                    'Top_Deal': 'Top Deal=True' if top_deal_exists else 'Top Deal=False',
-                }
-                room_data['Prices'].append(price_data)
+                cancellation_policy = card.locator('.css-70zr7a-Box-Flex.e1pfwvfi0').inner_text().replace('\n', ' ')
 
-            rooms_data.append(room_data)
-            print(json.dumps(room_data, indent=2))
+                number_of_guests_elements = card.locator('[data-testid="offer-guest-text"]').all()
+                number_of_guests = ', '.join([guest.inner_text().replace('\u2022', ' ') for guest in number_of_guests_elements])
 
-     
-        with open('rooms_data.json', 'w') as json_file:
-            json.dump(rooms_data, json_file, indent=2)
+                top_deal_element = card.locator('.css-1jr3e3z-Text-BadgeText.e34cw120').all()
+                is_top_deal = True if top_deal_element else False
 
-     
-        csv_file = 'fornova.csv'
-        with open(csv_file, 'w', newline='') as csvfile:
-            fieldnames = ['Room_Name', 'Rate_Name', 'Description', 'Price', 'Cancellation_Policy_Message_1', 'Top_Deal']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                room_rates.append({
+                    'number_of_guests': number_of_guests,
+                    'room_rate': room_rate_str,
+                    'cancellation_policy': cancellation_policy,
+                    'top_deal': is_top_deal
+                })
 
-            writer.writeheader()
-            for room_data in rooms_data:
-                for price_data in room_data['Prices']:
-                    writer.writerow({
-                        'Room_Name': room_data['Room_Name'],
-                        'Rate_Name': room_data['Rate_Name'],
-                        'Description': room_data['Description'],
-                        'Price': price_data['Price'],
-                        'Cancellation_Policy_Message_1': price_data.get('Cancellation_Policy_Message_1', ''),
-                        'Top_Deal': price_data['Top_Deal'],
-                    })
+            rates[room_name] = room_rates
+
+        print(json.dumps(rates, indent=2))
+
+        with open('room_details.json', 'w') as json_file:
+            json.dump(rates, json_file, indent=2)
+
+        page.screenshot(path='full_page_screenshot.png', full_page=True)
+
+        page.context.clear_cookies()
 
         browser.close()
+
 
 if __name__ == '__main__':
-    page_url = f'https://www.qantas.com/hotels/properties/18482?adults=2&checkIn=2024-02-06&checkOut=2024-02-07&children=0&infants=0&location=London%2C%20England%2C%20United%20Kingdom&page=1&payWith=cash&searchType=list&sortBy=popularity'
-
-    main_playwright(page_url, fetch_html_playwright)
-
+    main()
