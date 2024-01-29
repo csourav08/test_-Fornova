@@ -1,134 +1,86 @@
-[
-  {
-    "Room_Name": "Double Room (Compact)",
-    "Rate_Name": "Internet Included - Non-refundable",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$308AUD",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$324AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$371AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  },
-  {
-    "Room_Name": "Deluxe Double Room",
-    "Rate_Name": "Internet Included - Non-refundable",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$319AUD",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$336AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$382AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  },
-  {
-    "Room_Name": "Deluxe Twin Room",
-    "Rate_Name": "Internet Included - Non-refundable",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$341AUD",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$359AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$405AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  },
-  {
-    "Room_Name": "Club Double Room",
-    "Rate_Name": "Internet Included - Non-refundable",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$363AUD",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$382AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$428AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  },
-  {
-    "Room_Name": "Club Twin Room",
-    "Rate_Name": "Internet Included - Non-refundable",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$385AUD",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$405AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$463AUD / 1 night",
-        "Cancellation_Policy_Message_1": "Non-refundable",
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  },
-  {
-    "Room_Name": "Triple Room, 1 Double Bed",
-    "Rate_Name": "Internet Included",
-    "Description": "2 guests   1 night from",
-    "Prices": [
-      {
-        "Price": "$451AUD",
-        "Cancellation_Policy_Message_1": null,
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$466AUD / 1 night",
-        "Cancellation_Policy_Message_1": null,
-        "Top_Deal": "Top Deal=True"
-      },
-      {
-        "Price": "$577AUD / 1 night",
-        "Cancellation_Policy_Message_1": null,
-        "Top_Deal": "Top Deal=True"
-      }
-    ]
-  }
-]
+{
+  "Double Room (Compact)": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 244 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 290 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ],
+  "Deluxe Double Room": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 256 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 302 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ],
+  "Deluxe Twin Room": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 267 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 313 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ],
+  "Club Double Room": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 279 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 325 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ],
+  "Club Twin Room": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 283 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 341 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ],
+  "Triple Room, 1 Double Bed": [
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 342 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    },
+    {
+      "number_of_guests": "2 GUESTS   1 NIGHT FROM",
+      "room_rate": "$ 458 AUD",
+      "cancellation_policy": "Free cancellation before Wed 31 Jan, 2024",
+      "top_deal": false
+    }
+  ]
+}
