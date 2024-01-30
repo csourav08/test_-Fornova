@@ -16,10 +16,8 @@ def main():
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # Open the URL in the browser
         page.goto(page_url, timeout=60000)
 
-        # Wait for the page to fully load
         page.wait_for_load_state('load')
 
         time.sleep(4)
@@ -52,11 +50,14 @@ def main():
                 top_deal_element = card.locator('.css-1jr3e3z-Text-BadgeText.e34cw120').all()
                 is_top_deal = True if top_deal_element else False
 
+                room_amenities = card.locator('.css-10yvquw-Heading-Heading-Text.e13es6xl3').inner_text()
+
                 room_rates.append({
                     'number_of_guests': number_of_guests,
                     'room_rate': room_rate_str,
                     'cancellation_policy': cancellation_policy,
-                    'top_deal': is_top_deal
+                    'top_deal': is_top_deal,
+                    'room_amenities': room_amenities
                 })
 
             rates[room_name] = room_rates
