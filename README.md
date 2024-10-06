@@ -7,7 +7,7 @@ To Install:
 
 (Optional: create & activate a virtual environment) virtualenv venv, then source venv/bin/activate
 
-pip install -r requirements.txt
+pip install -r requirements.txt  
 
 
 to Run:
